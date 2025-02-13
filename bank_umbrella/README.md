@@ -50,3 +50,46 @@ bank_web/ → Expone endpoints en Phoenix para interactuar con el sistema.
 bank → Lógica del dominio (eventos, comandos, agregados, router).
 bank_eventstore → Configuración del almacenamiento de eventos con PostgreSQL.
 bank_web → API en Phoenix para interactuar con el sistema.
+
+####  1. Iniciar PostgreSQL y configurar EventStore
+1. Crear la base de datos para eventstore
+```
+mix do deps.get, event_store.create, event_store.init
+```
+2. Crear la base de datos para bank
+```
+mix ecto.create
+```
+ 
+ ** Los pasos anteriores se agregaran a un alias, ir a la seccion de [aliases](#aliases).
+
+#### 2. Ejecutar la aplicación
+Desde la raíz del umbrella (bank_umbrella/):
+
+```
+mix phx.server
+
+```
+Esto ejecutará todas las apps del umbrella (bank, bank_eventstore, bank_web).
+
+
+# Next Steps: 
+
+## BankWeb
+
+1. Agrega {:bank, in_umbrella: true} en el archivo apps/bank_web/mix.exs dentro de la lista de dependencias.
+2. Corre mix deps.get en la raíz del umbrella.
+3. Ejecuta mix phx.server para levantar el servidor.
+
+
+## Aliases
+
+Mix aliases en mix.exs del umbrella project para facilitar la ejecución y configuración de las apps. Ahora puedes usar:
+
+mix setup → Instala dependencias, crea y migra la base de datos.
+mix reset → Elimina y vuelve a crear la base de datos.
+mix server → Inicia el servidor Phoenix.
+
+```
+
+```
