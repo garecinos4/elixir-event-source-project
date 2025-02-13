@@ -2,14 +2,21 @@
 Es una aplicación básica en Elixir que implementa Event Sourcing usando Commanded, una librería popular para manejar eventos en aplicaciones basadas en CQRS (Command Query Responsibility Segregation).
 
 La aplicación es un sistema de gestión de cuentas bancarias donde puedes:
-
-Crear una cuenta
-Depositar dinero
-Retirar dinero
+1. Crear una cuenta
+2. Depositar dinero
+3. Retirar dinero
 Se almacenan los eventos en PostgreSQL usando eventstore como backend de eventos.
 
 ## Utilidades
 1. PostgreSQL
+    Create a docker compose docker-compose-local.yml and run it
+    ```
+    docker-compose -f docker-compose-local.yml build
+    
+    docker-compose -f docker-compose-local.yml up
+
+    docker container start bank_umbrella-postgres-1
+    ```
 2. EventStore
 3. Event Sourcing con Commanded.
 
@@ -42,14 +49,14 @@ mix phx.new apps/bank_web --module BankWeb --no-ecto
 
 ### 3. Configurar cada app
 
-bank/ → Contiene la lógica de negocios (eventos, comandos, agregados).
-bank_eventstore/ → Administra el almacenamiento de eventos con PostgreSQL.
-bank_web/ → Expone endpoints en Phoenix para interactuar con el sistema.
+- bank/ → Contiene la lógica de negocios (eventos, comandos, agregados).
+- bank_eventstore/ → Administra el almacenamiento de eventos con PostgreSQL.
+- bank_web/ → Expone endpoints en Phoenix para interactuar con el sistema.
 
 #### Diseño
-bank → Lógica del dominio (eventos, comandos, agregados, router).
-bank_eventstore → Configuración del almacenamiento de eventos con PostgreSQL.
-bank_web → API en Phoenix para interactuar con el sistema.
+- bank → Lógica del dominio (eventos, comandos, agregados, router).
+- bank_eventstore → Configuración del almacenamiento de eventos con PostgreSQL.
+- bank_web → API en Phoenix para interactuar con el sistema.
 
 ####  1. Iniciar PostgreSQL y configurar EventStore
 1. Crear la base de datos para eventstore
@@ -70,7 +77,9 @@ Desde la raíz del umbrella (bank_umbrella/):
 mix phx.server
 
 ```
-Esto ejecutará todas las apps del umbrella (bank, bank_eventstore, bank_web).
+Esto ejecutará todas las apps del umbrella (bank, bank_eventstore, bank_web)
+
+Access BankWebWeb Endpoint at http://localhost:4000
 
 
 # Next Steps: 
@@ -89,7 +98,3 @@ Mix aliases en mix.exs del umbrella project para facilitar la ejecución y confi
 mix setup → Instala dependencias, crea y migra la base de datos.
 mix reset → Elimina y vuelve a crear la base de datos.
 mix server → Inicia el servidor Phoenix.
-
-```
-
-```

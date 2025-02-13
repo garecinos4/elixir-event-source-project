@@ -1,0 +1,10 @@
+version: "2.2"
+services:
+  postgres:
+    image: bitnami/postgresql
+    environment:
+      - POSTGRESQL_PASSWORD=postgres
+      - POSTGRESQL_USERNAME=postgres
+      - POSTGRESQL_DATABASE=bank
+    ports:
+      - 5432:5432
